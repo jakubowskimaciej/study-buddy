@@ -4,7 +4,7 @@ npm install
 
 ## In case of prettier errors
 
-npm i -D eslint-plugin-prettier
+npm i -D eslint-plugin-prettier \
 npm i -D eslint-config-prettier
 
 # Getting Started with Create React App
