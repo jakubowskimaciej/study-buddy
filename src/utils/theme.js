@@ -1,6 +1,12 @@
 const theme = {
   colors: {
+    success: '#20c997',
+    warning: '#ffc107',
+    danger: '#dc3545',
     white: '#fff',
+    lightGrey: '#f7f8fa',
+    grey: '#adb5bd',
+    darkGrey: '#737C8E',
     black: '#111',
     shadow: 'rgba(0, 0, 0, 0.3)',
   },

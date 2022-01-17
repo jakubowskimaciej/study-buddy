@@ -25,7 +25,7 @@ export default createGlobalStyle`
       --color-darkGrey: ${({ theme }) => theme.colors.darkGrey};
       --color-black: ${({ theme }) => theme.colors.black};
       --color-success: ${({ theme }) => theme.colors.success};
-      --color-error: ${({ theme }) => theme.colors.error};
+      --color-danger: ${({ theme }) => theme.colors.danger};
       --color-warning: ${({ theme }) => theme.colors.warning};
       --color-lightPurple: ${({ theme }) => theme.colors.lightPurple};
       --color-darkPurple: ${({ theme }) => theme.colors.darkPurple};
