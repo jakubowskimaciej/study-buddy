@@ -4,10 +4,10 @@ import UsersList from 'components/organisms/UsersList/UsersList';
 import PropTypes from 'prop-types';
 import { UserShape } from 'types';
 
-const Dashboard = ({ users, deleteUser }) => {
+const Dashboard = () => {
   return (
     <ViewWrapper>
-      <UsersList users={users} deleteUser={deleteUser} />
+      <UsersList />
     </ViewWrapper>
   );
 };
