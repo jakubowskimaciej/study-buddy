@@ -1,22 +1,67 @@
-import React from 'react';
-import UsersList from 'components/organisms/UsersList/UsersList';
+import React, { useState } from 'react';
 
-import styled from 'styled-components';
+import { users as usersData } from 'data/users';
+import { Route, Routes } from 'react-router-dom';
+import { Wrapper } from './Root.styles';
+import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
+import Dashboard from './Dashboard';
+import AddUser from 'views/AddUser';
 
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--color-lightGrey);
-`;
+const initialValues = {
+  name: '',
+  average: '',
+  attendance: '',
+};
 
 const Root = () => {
+  const [users, setUsers] = useState(usersData);
+  const [formValues, setFormValues] = useState(initialValues);
+
+  const handleInputChange = (e) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const deleteUser = (name) => {
+    const filteredUsers = users.filter((user) => user.name !== name);
+    setUsers(filteredUsers);
+  };
+
+  const handleStudentAdd = (e) => {
+    e.preventDefault();
+    const newStudent = {
+      name: formValues.name,
+      average: formValues.average,
+      attendance: formValues.attendance,
+    };
+    setUsers([newStudent, ...users]);
+    setFormValues(initialValues);
+  };
+
   return (
-    <Wrapper>
-      <UsersList />
-    </Wrapper>
+    <MainTemplate>
+      <Wrapper>
+        <Routes>
+          <Route
+            path="/add-student"
+            element={
+              <AddUser
+                formValues={formValues}
+                handleInputChange={handleInputChange}
+                handleStudentAdd={handleStudentAdd}
+              />
+            }
+          ></Route>
+          <Route
+            exact
+            path="/"
+            element={<Dashboard users={users} deleteUser={deleteUser} />}
+          ></Route>
+        </Routes>
+      </Wrapper>
+    </MainTemplate>
   );
 };
 

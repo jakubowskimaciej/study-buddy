@@ -50,5 +50,6 @@ export default createGlobalStyle`
     select,
     a {
       -webkit-tap-highlight-color: rgba(0,0,0,0);
+      font-family: inherit;
     }
 `;

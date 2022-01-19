@@ -1,18 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import UsersListItem from 'components/molecules/UsersListItem/UsersListItem';
-import { users as usersData } from 'data/users';
-import { StyledList, Wrapper } from './UsersList.styles';
+import { StyledList } from './UsersList.styles';
+import { StyledTitle } from 'components/atoms/StyledTitle/StyledTitle';
 
-const UsersList = () => {
-  const [users, setUsers] = useState(usersData);
-
-  const deleteUser = (name) => {
-    const filteredUsers = users.filter((user) => user.name !== name);
-    setUsers(filteredUsers);
-  };
-
+const UsersList = ({ users, deleteUser }) => {
   return (
-    <Wrapper>
+    <>
+      <StyledTitle>Students list</StyledTitle>
       <StyledList>
         {users.map((userData) => (
           <UsersListItem
@@ -22,7 +16,7 @@ const UsersList = () => {
           />
         ))}
       </StyledList>
-    </Wrapper>
+    </>
   );
 };
 
