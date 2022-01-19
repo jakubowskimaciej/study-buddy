@@ -3,6 +3,8 @@ const theme = {
     success: '#20c997',
     warning: '#ffc107',
     danger: '#dc3545',
+    lightPurple: '#ECEFF7',
+    darkPurple: '#C0C7D6',
     white: '#fff',
     lightGrey: '#f7f8fa',
     grey: '#adb5bd',
