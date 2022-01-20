@@ -19,7 +19,14 @@ const FormField = ({ name, id, type = 'text', label, ...props }) => {
   return (
     <Wrapper>
       <Label htmlFor={id}>{label}</Label>
-      <Input name={name} id={id} type={type} {...props} autoComplete="off" />
+      <Input
+        name={name}
+        id={id}
+        type={type}
+        {...props}
+        autoComplete="off"
+        data-testid={label}
+      />
     </Wrapper>
   );
 };
