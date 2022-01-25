@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useReducer, useContext } from 'react';
 import { Button } from 'components/atoms/Button/Button';
 import { StyledTitle } from 'components/atoms/StyledTitle/StyledTitle';
 import FormField from 'components/molecules/FormField/FormField';
 import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
 import { UsersContext } from 'providers/UsersProvider';
+import { useForm } from 'hooks/useForm';
 
 const initialValues = {
   name: '',
@@ -12,20 +13,15 @@ const initialValues = {
 };
 
 const AddUser = () => {
-  const [formValues, setFormValues] = useState(initialValues);
   const { handleUserAdd } = useContext(UsersContext);
 
-  const handleInputChange = (e) => {
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const { formValues, handleInputChange, handleClearForm } =
+    useForm(initialValues);
 
   const handleSubmitUser = (e) => {
     e.preventDefault();
     handleUserAdd(formValues);
-    setFormValues(initialValues);
+    handleClearForm();
   };
 
   return (
