@@ -8,6 +8,8 @@ export const Wrapper = styled.nav`
   flex-direction: column;
   border-right: 0.1rem solid var(--color-darkPurple);
   padding: 3rem 0;
+  grid-row: 1/3;
+  grid-column: 1/1;
 `;
 
 export const Logo = styled.div`
