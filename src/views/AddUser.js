@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Button } from 'components/atoms/Button/Button';
 import { StyledTitle } from 'components/atoms/StyledTitle/StyledTitle';
 import FormField from 'components/molecules/FormField/FormField';
