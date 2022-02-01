@@ -1,5 +1,4 @@
-import { Button } from 'components/atoms/Button/Button';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   NewsSectionWrapper,
   Header,
@@ -7,48 +6,62 @@ import {
   TitleWrapper,
   ContentWrapper,
 } from './NewsSection.styles';
+import { Button } from 'components/atoms/Button/Button';
+import axios from 'axios';
 
-const data = [
-  {
-    title: 'New computers for all lecturers',
-    category: 'Staff news',
-    content:
-      'Amet, diam, viverra nec pretium in nunc a. Pellentesque venenatis fames molestie non. Nulla neque, a a id elementum pretium aliquam. In turpis sem vestibulum ut in ut. Fringilla orci, condimentum tellus leo nunc, vitae eu. Diam euismod enim integer facilisi sed. Pretium hendrerit quis egestas eget at magna ac commodo volutpat.',
-    image: null,
-  },
-  {
-    title: 'Business course for best students',
-    category: 'Students',
-    content:
-      'Amet, diam, viverra nec pretium in nunc a. Pellentesque venenatis fames molestie non. Nulla neque, a a id elementum pretium aliquam.',
-    image: 'https://unsplash.it/500/400',
-  },
-  {
-    title: 'All exams postponed',
-    category: 'Staff news',
-    content:
-      'Amet, diam, viverra nec pretium in nunc a. Pellentesque venenatis fames molestie non. Nulla neque, a a id elementum pretium aliquam.',
-    image: null,
-  },
-];
+const NewsSection = () => {
+  const [articles, setArticles] = useState([]);
+  const [error, setError] = useState('');
 
-const NewsSection = () => (
-  <NewsSectionWrapper>
-    <Header>University news feed</Header>
-    {data.map(({ title, category, content, image }) => (
-      <ArticleWrapper key={title}>
-        <TitleWrapper>
-          <h3>{title}</h3>
-          <p>{category}</p>
-        </TitleWrapper>
-        <ContentWrapper>
-          <p>{content}</p>
-          {image ? <img src={image} alt="article" /> : null}
-        </ContentWrapper>
-        <Button isBig>Read more</Button>
-      </ArticleWrapper>
-    ))}
-  </NewsSectionWrapper>
-);
+  useEffect(() => {
+    axios
+      .post(
+        'https://graphql.datocms.com/',
+        {
+          query: `{
+        allArticles {
+          id
+          title
+          category
+          content
+          image {
+            url
+          }
+        }
+      }`,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${process.env.REACT_APP_DATOCMS_API_KEY}`,
+          },
+        }
+      )
+      .then(({ data: { data } }) => setArticles(data.allArticles))
+      .catch(() => setError(`Sorry, we couldn't load news for you. `));
+  }, []);
+
+  return (
+    <NewsSectionWrapper>
+      <Header>University news feed</Header>
+      {articles.length > 0 && !error ? (
+        articles.map(({ title, category, content, image, id }) => (
+          <ArticleWrapper key={id}>
+            <TitleWrapper>
+              <h3>{title}</h3>
+              <p>{category}</p>
+            </TitleWrapper>
+            <ContentWrapper>
+              <p>{content}</p>
+              {image ? <img src={image.url} alt="article" /> : null}
+            </ContentWrapper>
+            <Button isBig>Read more</Button>
+          </ArticleWrapper>
+        ))
+      ) : (
+        <Header>{error ? error : 'Loading...'}</Header>
+      )}
+    </NewsSectionWrapper>
+  );
+};
 
 export default NewsSection;
