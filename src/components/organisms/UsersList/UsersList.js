@@ -1,11 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import UsersListItem from 'components/molecules/UsersListItem/UsersListItem';
 import { StyledList } from './UsersList.styles';
 import { StyledTitle } from 'components/atoms/StyledTitle/StyledTitle';
-import { UsersContext } from 'providers/UsersProvider';
 
-const UsersList = () => {
-  const { users } = useContext(UsersContext);
+const UsersList = ({ users = [] }) => {
   return (
     <>
       <StyledTitle>Students list</StyledTitle>

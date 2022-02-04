@@ -6,6 +6,9 @@ import theme from 'utils/theme';
 import GlobalStyles from 'utils/GlobalStyles';
 import 'utils/fonts.css';
 import { BrowserRouter } from 'react-router-dom';
+import { worker } from 'mocks/browser';
+
+worker.start();
 
 ReactDOM.render(
   <React.StrictMode>

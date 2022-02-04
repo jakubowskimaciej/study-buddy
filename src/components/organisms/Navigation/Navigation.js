@@ -9,7 +9,7 @@ const Navigation = () => {
           Study <br /> Buddy
         </h1>
       </Logo>
-      <StyledLink to="/">Dashboard</StyledLink>
+      <StyledLink to="/group">Dashboard</StyledLink>
       <StyledLink to="/add-student">Add students</StyledLink>
     </Wrapper>
   );
