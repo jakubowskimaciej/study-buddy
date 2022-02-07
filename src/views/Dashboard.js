@@ -1,32 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import UsersList from 'components/organisms/UsersList/UsersList';
+import React, { useState, useEffect } from 'react';
+import UsersList from 'components/organisms/StudentsList/StudentsList';
 import PropTypes from 'prop-types';
-import { UserShape } from 'types';
-import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+import { StudentShape } from 'types';
+import { Link, Redirect, useParams } from 'react-router-dom';
 import { TitleWrapper, Wrapper, GroupWrapper } from './Dashboard.styles';
 import { Title } from 'components/atoms/Title/Title';
+import { useStudents } from 'hooks/useStudents';
 
 const Dashboard = () => {
-  const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
+  const { getGroups } = useStudents();
   const { id } = useParams();
 
   useEffect(() => {
-    axios
-      .get('/groups')
-      .then(({ data }) => setGroups(data.groups))
-      .catch((err) => console.log(err));
-  }, []);
+    (async () => {
+      const groups = await getGroups();
+      setGroups(groups);
+    })();
+  }, [getGroups]);
 
-  useEffect(() => {
-    axios
-      .get(`/students/${id || groups[0]}`)
-      .then(({ data }) => setUsers(data.students))
-      .catch((err) => console.log(err));
-  }, [id, groups]);
-
-  console.log(groups);
+  if (!id && groups.length > 0) return <Redirect to={`/group/${groups[0]}`} />;
 
   return (
     <Wrapper>
@@ -41,14 +34,14 @@ const Dashboard = () => {
         </nav>
       </TitleWrapper>
       <GroupWrapper>
-        <UsersList users={users} />
+        <UsersList />
       </GroupWrapper>
     </Wrapper>
   );
 };
 
 UsersList.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape(UserShape)),
+  students: PropTypes.arrayOf(PropTypes.shape(StudentShape)),
   deleteUser: PropTypes.func,
 };
 

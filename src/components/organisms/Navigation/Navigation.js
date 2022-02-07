@@ -10,7 +10,6 @@ const Navigation = () => {
         </h1>
       </Logo>
       <StyledLink to="/group">Dashboard</StyledLink>
-      <StyledLink to="/add-student">Add students</StyledLink>
     </Wrapper>
   );
 };

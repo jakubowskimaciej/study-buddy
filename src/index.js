@@ -8,16 +8,16 @@ import 'utils/fonts.css';
 import { BrowserRouter } from 'react-router-dom';
 import { worker } from 'mocks/browser';
 
-worker.start();
-
-ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <Root />
-      </ThemeProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+worker.start().then(() => {
+  ReactDOM.render(
+    <React.StrictMode>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <GlobalStyles />
+          <Root />
+        </ThemeProvider>
+      </BrowserRouter>
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+});
