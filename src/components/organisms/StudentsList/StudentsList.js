@@ -5,7 +5,7 @@ import { StyledTitle } from 'components/atoms/StyledTitle/StyledTitle';
 import { useStudents } from 'hooks/useStudents';
 import { useParams } from 'react-router-dom';
 
-const UsersList = () => {
+const UsersList = ({ handleOpenStudentDetails }) => {
   const [students, setStudents] = useState([]);
   const { id } = useParams();
   const { getStudents } = useStudents();
@@ -22,7 +22,11 @@ const UsersList = () => {
       <StyledTitle>Students list</StyledTitle>
       <StyledList>
         {students.map((studentData) => (
-          <StudentsListItem key={studentData.name} studentData={studentData} />
+          <StudentsListItem
+            key={studentData.name}
+            studentData={studentData}
+            onClick={() => handleOpenStudentDetails(studentData.id)}
+          />
         ))}
       </StyledList>
     </>
