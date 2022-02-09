@@ -1,11 +1,10 @@
 import { rest } from 'msw';
 import { students } from 'mocks/data/students';
-import { groups } from 'mocks/data/groups';
 import { db } from 'mocks/db';
 
 export const handlers = [
   rest.get('/groups', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ groups }));
+    return res(ctx.status(200), ctx.json({ groups: db.group.getAll() }));
   }),
   rest.get('/groups/:id', (req, res, ctx) => {
     if (req.params.id) {
@@ -64,13 +63,16 @@ export const handlers = [
     );
   }),
   rest.post('/students/search', (req, res, ctx) => {
-    const matchingStudents = req.body.searchPhrase
-      ? students.filter((student) =>
-          student.name
-            .toLowerCase()
-            .includes(req.body.searchPhrase.toLowerCase())
-        )
-      : [];
+    const matchingStudents =
+      req.body.searchPhrase.length > 0
+        ? db.student.findMany({
+            where: {
+              name: {
+                contains: req.body.searchPhrase,
+              },
+            },
+          })
+        : [];
     return res(
       ctx.status(200),
       ctx.json({
