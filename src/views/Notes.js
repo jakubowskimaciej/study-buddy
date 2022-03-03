@@ -12,7 +12,8 @@ import {
 import FormField from 'components/molecules/FormField/FormField';
 import { Label } from 'components/atoms/Label/Label';
 import { useSelector, useDispatch } from 'react-redux';
-import { addNote } from 'actions';
+// import { addNote } from 'actions';
+import { addNote } from 'store';
 import { useForm } from 'react-hook-form';
 
 const Notes = () => {

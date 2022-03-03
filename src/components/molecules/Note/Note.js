@@ -5,7 +5,7 @@ import {
   StyledDeleteButton,
 } from 'components/molecules/Note/Note.styles';
 import { useDispatch } from 'react-redux';
-import { removeNote } from 'actions';
+import { removeNote } from 'store';
 
 const Note = ({ title, content, id }) => {
   const dispatch = useDispatch();
