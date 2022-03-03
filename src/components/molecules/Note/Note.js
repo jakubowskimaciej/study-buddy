@@ -4,13 +4,21 @@ import {
   NoteWrapper,
   StyledDeleteButton,
 } from 'components/molecules/Note/Note.styles';
+import { useDispatch } from 'react-redux';
+import { removeNote } from 'actions';
 
-const Note = ({ title = 'Untitled', content = 'No content', id }) => {
+const Note = ({ title, content, id }) => {
+  const dispatch = useDispatch();
+
+  const handleRemoveNote = () => {
+    dispatch(removeNote({ id }));
+  };
+
   return (
     <NoteWrapper>
       <Title>{title}</Title>
       <p>{content}</p>
-      <StyledDeleteButton />
+      <StyledDeleteButton onClick={handleRemoveNote} />
     </NoteWrapper>
   );
 };

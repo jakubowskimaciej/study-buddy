@@ -4,55 +4,68 @@ import Note from 'components/molecules/Note/Note';
 import {
   FormWrapper,
   NotesWrapper,
+  StyledErrorMessage,
+  StyledInfo,
   StyledTextarea,
   Wrapper,
 } from './Notes.styles';
 import FormField from 'components/molecules/FormField/FormField';
 import { Label } from 'components/atoms/Label/Label';
-
-const notes = [
-  {
-    title: 'Title',
-    content:
-      'Quisque tincidunt, neque non auctor cursus, nisl nulla lacinia urna, laoreet venenatis risus sapien a felis. Nulla sit amet aliquet quam. ',
-    id: '1',
-  },
-  {
-    title: 'Title',
-    content:
-      'Quisque tincidunt, neque non auctor cursus, nisl nulla lacinia urna, laoreet venenatis risus sapien a felis. Nulla sit amet aliquet quam. ',
-    id: '2',
-  },
-  {
-    title: 'Title',
-    content:
-      'Quisque tincidunt, neque non auctor cursus, nisl nulla lacinia urna, laoreet venenatis risus sapien a felis. Nulla sit amet aliquet quam. ',
-    id: '3',
-  },
-];
+import { useSelector, useDispatch } from 'react-redux';
+import { addNote } from 'actions';
+import { useForm } from 'react-hook-form';
 
 const Notes = () => {
+  const notes = useSelector((state) => state.notes);
+  const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const handleAddNote = ({ title, content }) => {
+    dispatch(addNote({ title, content }));
+    reset({
+      title: '',
+      content: '',
+    });
+  };
+
   return (
     <Wrapper>
-      <FormWrapper>
-        <FormField label="Title" name="title" id="title" />
+      <FormWrapper as="form" onSubmit={handleSubmit(handleAddNote)}>
+        <FormField
+          label="Title"
+          name="title"
+          id="title"
+          {...register('title', { required: true })}
+        />
         <Label>Content</Label>
         <StyledTextarea
-          as="textarea"
-          isTextarea
           label="Content"
           name="content"
           id="content"
+          {...register('content', { required: true })}
         />
-        <Button>Add</Button>
+        {errors.title && (
+          <StyledErrorMessage>Title is required</StyledErrorMessage>
+        )}
+        {errors.content && (
+          <StyledErrorMessage>Content is required</StyledErrorMessage>
+        )}
+        <Button type="submit">Add</Button>
       </FormWrapper>
       <NotesWrapper>
         {notes.length ? (
           notes.map(({ title, content, id }) => (
-            <Note id={id} key={id} title={title} content={content} />
+            <Note key={id} id={id} title={title} content={content} />
           ))
         ) : (
-          <p>Create your first note</p>
+          <StyledInfo>
+            <span>✏️</span> Create your first note
+          </StyledInfo>
         )}
       </NotesWrapper>
     </Wrapper>

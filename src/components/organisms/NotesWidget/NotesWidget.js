@@ -7,9 +7,11 @@ import {
   WidgetHandler,
   Wrapper,
 } from 'components/organisms/NotesWidget/NotesWidget.styles';
+import { useSelector } from 'react-redux';
 
-const NotesWidget = ({ notes = [] }) => {
+const NotesWidget = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const notes = useSelector((state) => state.notes);
 
   const handleToggleWidget = () => setIsOpen((prevState) => !prevState);
 
@@ -23,7 +25,9 @@ const NotesWidget = ({ notes = [] }) => {
           ))
         ) : (
           <StyledInfoWrapper>
-            <StyledInfo>Create your first note 🤓</StyledInfo>
+            <StyledInfo>
+              Create your first note <span>✏️</span>
+            </StyledInfo>
           </StyledInfoWrapper>
         )}
       </NotesWrapper>

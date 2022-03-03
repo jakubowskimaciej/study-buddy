@@ -16,11 +16,12 @@ export const FormWrapper = styled.div`
   background: var(--color-white);
   border-radius: 2.5rem;
   width: 35rem;
-  height: 80%;
+  height: 50rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  box-shadow: -0.1rem 0.4rem 1rem rgba(115, 124, 142, 0.25);
 
   ${Label} {
     margin-top: 2rem;
@@ -47,4 +48,24 @@ export const NotesWrapper = styled.div`
   padding: 2rem 1rem 2rem 6rem;
   display: flex;
   flex-direction: column;
+  max-height: 65rem;
+  overflow: scroll;
+`;
+
+export const StyledInfo = styled.p`
+  font-size: ${({ theme }) => theme.fontSize.l};
+  font-weight: 500;
+  color: var(--color-darkGrey);
+  text-align: center;
+
+  span {
+    font-size: ${({ theme }) => theme.fontSize.xl};
+  }
+`;
+
+export const StyledErrorMessage = styled.span`
+  font-size: ${({ theme }) => theme.fontSize.m};
+  font-weight: 500;
+  color: var(--color-danger);
+  margin-top: 1rem;
 `;
