@@ -17,7 +17,7 @@ const Note = ({ title, content, id }) => {
     <NoteWrapper>
       <Title>{title}</Title>
       <p>{content}</p>
-      <StyledDeleteButton onClick={handleRemoveNote} />
+      <StyledDeleteButton aria-label="delete" onClick={handleRemoveNote} />
     </NoteWrapper>
   );
 };
