@@ -47,6 +47,7 @@ const Notes = () => {
           label="Content"
           name="content"
           id="content"
+          data-testid="content"
           {...register('content', { required: true })}
         />
         {errors.title && (
